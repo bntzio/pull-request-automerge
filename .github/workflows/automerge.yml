@@ -6,10 +6,17 @@ permissions:
   contents: write
 
 jobs:
-  automerge:
+  approve-and-merge:
     runs-on: ubuntu-latest
     steps:
-      - uses: peter-evans/enable-pull-request-automerge@v2
+      - name: Auto approve
+        if:  startsWith(github.head_ref, 'entries-') && github.event.action == 'opened'
+        uses: juliangruber/approve-pull-request-action@v2
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          number: ${{ github.event.pull_request.number }}
+      - name: Auto merge
+        uses: peter-evans/enable-pull-request-automerge@v2
         with:
           pull-request-number: ${{ github.event.pull_request.number }}
           merge-method: squash
