@@ -9,6 +9,7 @@ jobs:
   approve-and-merge:
     runs-on: ubuntu-latest
     steps:
+      - uses: actions/checkout@v3
       - name: Auto approve
         if:  startsWith(github.head_ref, 'entries-') && github.event.action == 'opened'
         uses: juliangruber/approve-pull-request-action@v2
