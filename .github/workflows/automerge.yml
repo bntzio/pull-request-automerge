@@ -11,7 +11,7 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - name: Auto approve
-        if:  startsWith(github.head_ref, 'entries-') && github.event.action == 'opened'
+        if:  startsWith(github.head_ref, 'entries-')
         uses: hmarr/auto-approve-action@v3
         with:
           github-token: ${{ secrets.PAT }}
