@@ -13,6 +13,8 @@ jobs:
       - name: Auto approve
         if:  startsWith(github.head_ref, 'entries-') && github.event.action == 'opened'
         uses: hmarr/auto-approve-action@v3
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
       - name: Auto merge
         uses: peter-evans/enable-pull-request-automerge@v2
         with:
