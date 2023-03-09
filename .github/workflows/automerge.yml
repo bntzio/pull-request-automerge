@@ -16,7 +16,6 @@ jobs:
         with:
           github-token: ${{ secrets.PAT }}
       - name: Auto merge
-        uses: peter-evans/enable-pull-request-automerge@v2
-        with:
-          pull-request-number: ${{ github.event.pull_request.number }}
-          merge-method: squash
+        run: gh pr merge --squash --auto ${{ github.event.pull_request.number }}
+        env:
+          GH_TOKEN: ${{ secrets.PAT }}
