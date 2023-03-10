@@ -13,7 +13,7 @@ jobs:
           files: |
             readme.md
 
-      - name: Check changed files
+      - name: Unathorized file change
         if: steps.changed-files.outputs.any_changed == 'true' && github.actor != 'bntzio'
         run: |
           echo "Attempting to change a generated file. This is not allowed."
