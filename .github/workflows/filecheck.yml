@@ -5,9 +5,10 @@ jobs:
   filecheck:
     runs-on: ubuntu-latest
     steps:
+      - uses: actions/checkout@v3
       - name: Get changed files
         id: changed-files
-        uses: tj-actions/changed-files@v35
+        uses: tj-actions/changed-files@3032ed12385efa3ba02db737b66f90dcd2d28f64
         with:
           files: |
             readme.md
