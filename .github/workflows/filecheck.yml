@@ -7,7 +7,7 @@ jobs:
     steps:
       - name: Get changed files
         id: changed-files
-        uses: tj-actions/changed-files@3032ed12385efa3ba02db737b66f90dcd2d28f64
+        uses: tj-actions/changed-files@v35
         with:
           files: |
             readme.md
