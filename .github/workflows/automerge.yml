@@ -14,8 +14,8 @@ jobs:
         if:  startsWith(github.head_ref, 'entries-')
         uses: hmarr/auto-approve-action@0902bf83c300168cda5cd6856731a0fcb0e731c2
         with:
-          github-token: ${{ secrets.PAT }}
+          github-token: ''
       - name: Auto merge
         run: gh pr merge --squash --auto ${{ github.event.pull_request.number }}
         env:
-          GH_TOKEN: ${{ secrets.PAT }}
+          GH_TOKEN: ''
