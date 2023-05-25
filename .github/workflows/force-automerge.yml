@@ -16,7 +16,7 @@ jobs:
         id: wait-for-build
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
-          checkName: check-provisioning-result
+          checkName: filecheck
           intervalSeconds: 15
           ref: ${{ github.event.pull_request.head.sha }}
       - name: Check if there's any another check failing
