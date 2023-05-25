@@ -1,0 +1,30 @@
+name: force-automerge
+on:
+  pull_request:
+    types: [opened, edited, synchronize, reopened, labeled]
+  check_suite:
+    types:
+      - completed
+jobs:
+  automerge:
+    if: github.event.pull_request.user.login == 'bntzio' && contains(github.event.pull_request.labels.*.name, 'auto-merge')
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Wait for provisioning to succeed
+        uses: fountainhead/action-wait-for-check@297be350cf8393728ea4d4b39435c7d7ae167c93
+        id: wait-for-build
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          checkName: check-provisioning-result
+          intervalSeconds: 15
+          ref: ${{ github.event.pull_request.head.sha }}
+      - name: Check if there's any another check failing
+        if:  ${{ steps.wait-for-build.outputs.conclusion == 'success' || steps.wait-for-build.outputs.conclusion == 'skipped' }}
+        run: gh pr checks --watch --required --fail-fast ${{ github.event.pull_request.number }}
+        env:
+          GH_TOKEN: ${{ secrets.BOT_TOKEN }}
+      - name: Auto merge
+        run: gh pr merge --squash --admin -d ${{ github.event.pull_request.number }}
+        env:
+          GH_TOKEN: ${{ secrets.BOT_TOKEN }}
