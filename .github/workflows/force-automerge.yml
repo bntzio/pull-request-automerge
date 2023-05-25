@@ -27,4 +27,4 @@ jobs:
       - name: Auto merge
         run: gh pr merge --squash --admin -d ${{ github.event.pull_request.number }}
         env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GH_TOKEN: ${{ secrets.PAT }}
