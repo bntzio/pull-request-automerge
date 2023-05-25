@@ -24,7 +24,7 @@ jobs:
         run: gh pr checks --watch --required --fail-fast ${{ github.event.pull_request.number }}
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      - run: git merge origin/main
+      - run: git merge main
       - name: Auto merge
         run: gh pr merge --squash --admin -d ${{ github.event.pull_request.number }}
         env:
